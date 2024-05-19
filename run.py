@@ -31,7 +31,6 @@ module.
 There are a number of utility commands being showcased here.'''
 
 intents = discord.Intents.default()
-intents.members = True
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='$', description=description, intents=intents)
@@ -52,7 +51,8 @@ async def on_message(message):
         response = api.get_answer(inputs)
         answer = ""
         for text in response:
-            answer += text
+            print(text)
+            answer += text.decode('utf-8')
         logging.info(f"User: {message.author} Inputs: {inputs} Answer: {answer}")
         await message.channel.send(answer)
 
