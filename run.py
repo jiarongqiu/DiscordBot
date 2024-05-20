@@ -56,6 +56,12 @@ async def on_message(message):
         logging.info(f"User: {message.author} Inputs: {inputs} Answer: {answer}")
         await message.channel.send(answer)
 
+@bot.command
+async def ping(ctx, arg):
+    print(bot.user,ctx,arg)
+    await ctx.channel.send("command received")
+
+
 bot.run(token, log_handler=None)
 
 # Assume client refers to a discord.Client subclass...
