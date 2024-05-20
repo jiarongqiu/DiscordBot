@@ -51,9 +51,8 @@ async def on_ready():
 #         await message.channel.send(answer)
 
 @bot.command()
-async def jarvis(ctx, arg):
-    print(bot.user,ctx,arg)
-    inputs = arg
+async def jarvis(ctx,*, inputs):
+    print(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
     response = api.get_answer(inputs)
     answer = ""
     for text in response:
@@ -62,12 +61,4 @@ async def jarvis(ctx, arg):
     logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
     await ctx.send(answer)
 
-@bot.command()
-async def foo(ctx, arg):
-    await ctx.send(arg)
-
 bot.run(token, log_handler=None)
-
-# Assume client refers to a discord.Client subclass...
-# Suppress the default configuration since we have our own
-# client.run(token, log_handler=None)
