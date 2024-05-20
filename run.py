@@ -25,30 +25,28 @@ formatter = logging.Formatter('[{asctime}] [{levelname:<8}] {name}: {message}', 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='$', intents=intents)
+bot = commands.Bot(command_prefix='$')
 
 @bot.event
 async def on_ready():
     logging.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
 
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
-    if message.content.startswith('!jarvis'):
-        print(bot.user,message.content)
-        inputs = message.content.split(' ')
-        inputs.pop(0)
-        inputs = " ".join(inputs)
-        response = api.get_answer(inputs)
-        answer = ""
-        for text in response:
-            print(text)
-            answer += text.decode('utf-8')
-        logging.info(f"User: {message.author} Inputs: {inputs} Answer: {answer}")
-        await message.channel.send(answer)
+# @bot.event
+# async def on_message(message):
+#     if message.author == bot.user:
+#         return
+#     if message.content.startswith('!jarvis'):
+#         print(bot.user,message.content)
+#         inputs = message.content.split(' ')
+#         inputs.pop(0)
+#         inputs = " ".join(inputs)
+#         response = api.get_answer(inputs)
+#         answer = ""
+#         for text in response:
+#             print(text)
+#             answer += text.decode('utf-8')
+#         logging.info(f"User: {message.author} Inputs: {inputs} Answer: {answer}")
+#         await message.channel.send(answer)
 
 @bot.command()
 async def jarvis(ctx, arg):
