@@ -51,8 +51,8 @@ async def on_ready():
 #         await message.channel.send(answer)
 
 @bot.command()
-async def jarvis(ctx,*, inputs):
-    print(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
+async def jarvis(ctx, *, inputs):
+    print(f"User: {ctx.message.author} Inputs: {inputs}")
     response = api.get_answer(inputs)
     answer = ""
     for text in response:
