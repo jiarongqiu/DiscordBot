@@ -11,7 +11,7 @@ token = os.getenv('DISCORD_TOKEN')
 logging.info(f"TOKEN:{token}")
 
 logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logging.getLogger('discord.http').setLevel(logging.INFO)
 
 handler = logging.handlers.RotatingFileHandler(
@@ -27,7 +27,6 @@ logger.addHandler(handler)
 
 intents = discord.Intents.default()
 intents.message_content = True
-
 bot = commands.Bot(command_prefix='$', intents=intents)
 
 @bot.event
@@ -63,6 +62,9 @@ async def jarvis(ctx, arg):
     logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
     await ctx.send(answer)
 
+@bot.command()
+async def foo(ctx, arg):
+    await ctx.send(arg)
 
 bot.run(token, log_handler=None)
 
