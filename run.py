@@ -25,15 +25,10 @@ formatter = logging.Formatter('[{asctime}] [{levelname:<8}] {name}: {message}', 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-description = '''An example bot to showcase the discord.ext.commands extension
-module.
-
-There are a number of utility commands being showcased here.'''
-
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix='$', description=description, intents=intents)
+bot = commands.Bot(command_prefix='$', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -43,7 +38,7 @@ async def on_ready():
 async def on_message(message):
     if message.author == bot.user:
         return
-    if message.content.startswith('$jarvis'):
+    if message.content.startswith('!jarvis'):
         print(bot.user,message.content)
         inputs = message.content.split(' ')
         inputs.pop(0)
@@ -56,10 +51,17 @@ async def on_message(message):
         logging.info(f"User: {message.author} Inputs: {inputs} Answer: {answer}")
         await message.channel.send(answer)
 
-@bot.command
-async def ping(ctx, arg):
+@bot.command()
+async def jarvis(ctx, arg):
     print(bot.user,ctx,arg)
-    await ctx.channel.send("command received")
+    inputs = arg
+    response = api.get_answer(inputs)
+    answer = ""
+    for text in response:
+        print(text)
+        answer += text.decode('utf-8')
+    logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
+    await ctx.send(answer)
 
 
 bot.run(token, log_handler=None)
