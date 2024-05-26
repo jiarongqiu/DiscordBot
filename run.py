@@ -15,7 +15,7 @@ bot = discord.Bot()
 async def on_ready():
     logging.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
 
-@bot.slash_command(description="Jarvis AI Assitant")
+@bot.command(description="Jarvis AI Assitant")
 async def jarvis(ctx,inputs: discord.Option(str)):
     print(f"QJR ctx: {ctx}")
     response = api.get_answer(inputs)
@@ -25,7 +25,7 @@ async def jarvis(ctx,inputs: discord.Option(str)):
         answer += text.decode('utf-8')
     await ctx.respond(answer)
 
-@bot.slash_command(description="打招呼")
+@bot.command(description="say hi")
 async def hello(ctx):
     await ctx.respond("Hello, world!")
 # @bot.event
