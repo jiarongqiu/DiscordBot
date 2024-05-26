@@ -17,6 +17,7 @@ async def on_ready():
 
 @bot.command(description="Jarvis AI Assitant")
 async def jarvis(ctx,inputs: discord.Option(str)):
+    await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR ctx: {ctx} inputs: {inputs}")
     response = api.get_answer(inputs)
     answer = ""
@@ -24,7 +25,7 @@ async def jarvis(ctx,inputs: discord.Option(str)):
         print(text)
         answer += text.decode('utf-8')
     print(f"XXXX {type(answer)} {answer}")
-    await ctx.respond(answer)
+    await ctx.followup.send(answer)  # 使用 followup 发送最终消息
 
 @bot.command(description="say hi")
 async def hello(ctx):
