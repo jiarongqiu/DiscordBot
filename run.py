@@ -56,4 +56,4 @@ async def hello(ctx):
 #     logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
 #     await ctx.send(answer)
 
-bot.run(token, log_handler=None)
+bot.run(token)
