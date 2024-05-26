@@ -23,6 +23,7 @@ async def jarvis(ctx,inputs: discord.Option(str)):
     for text in response:
         print(text)
         answer += text.decode('utf-8')
+    print(f"XXXX {type(answer)} {answer}")
     await ctx.respond(answer)
 
 @bot.command(description="say hi")
