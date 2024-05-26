@@ -17,7 +17,7 @@ async def on_ready():
 
 @bot.command(description="Jarvis AI Assitant")
 async def jarvis(ctx,inputs: discord.Option(str)):
-    print(f"QJR ctx: {ctx}")
+    print(f"QJR ctx: {ctx} inputs: {inputs}")
     response = api.get_answer(inputs)
     answer = ""
     for text in response:
