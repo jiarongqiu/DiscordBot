@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+from discord.commands import Option
 import logging
 import logging.handlers
 from dotenv import load_dotenv
@@ -25,14 +26,30 @@ formatter = logging.Formatter('[{asctime}] [{levelname:<8}] {name}: {message}', 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='$', intents=intents)
+# intents = discord.Intents.default()
+# intents.message_content = True
+# bot = commands.Bot(command_prefix='/', intents=intents)
+bot = commands.Bot()
 
 @bot.event
 async def on_ready():
     logging.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
 
+@bot.slash_command(description="Jarvis AI Assitant")
+async def your_command(ctx, *, inputs):
+    print(f"QJR ctx: {ctx} ctx.message.author: {ctx.message.author} Inputs: {inputs}") 
+    print(f"User: {ctx.message.author} Inputs: {inputs}")
+    response = api.get_answer(inputs)
+    answer = ""
+    for text in response:
+        print(text)
+        answer += text.decode('utf-8')
+    logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
+    await ctx.send(answer)
+
+@bot.slash_command(description="打招呼")
+async def hello(ctx):
+    await ctx.respond("Hello, world!")
 # @bot.event
 # async def on_message(message):
 #     if message.author == bot.user:
@@ -50,15 +67,15 @@ async def on_ready():
 #         logging.info(f"User: {message.author} Inputs: {inputs} Answer: {answer}")
 #         await message.channel.send(answer)
 
-@bot.command()
-async def jarvis(ctx, *, inputs):
-    print(f"User: {ctx.message.author} Inputs: {inputs}")
-    response = api.get_answer(inputs)
-    answer = ""
-    for text in response:
-        print(text)
-        answer += text.decode('utf-8')
-    logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
-    await ctx.send(answer)
+# @bot.command()
+# async def jarvis(ctx, *, inputs):
+#     print(f"User: {ctx.message.author} Inputs: {inputs}")
+#     response = api.get_answer(inputs)
+#     answer = ""
+#     for text in response:
+#         print(text)
+#         answer += text.decode('utf-8')
+#     logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
+#     await ctx.send(answer)
 
 bot.run(token, log_handler=None)
