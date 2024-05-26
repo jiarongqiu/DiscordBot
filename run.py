@@ -1,7 +1,6 @@
 import os
 import discord
 from discord.ext import commands
-from discord.commands import Option
 import logging
 import logging.handlers
 from dotenv import load_dotenv
@@ -26,10 +25,10 @@ formatter = logging.Formatter('[{asctime}] [{levelname:<8}] {name}: {message}', 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-# intents = discord.Intents.default()
+intents = discord.Intents.default()
 # intents.message_content = True
 # bot = commands.Bot(command_prefix='/', intents=intents)
-bot = commands.Bot()
+bot = commands.Bot(intents=intents)
 
 @bot.event
 async def on_ready():
