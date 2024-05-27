@@ -1,4 +1,5 @@
 import requests
+import json
 
 class API:
     ENDPOINT = 'https://jr818-jarvisfastapi.hf.space/api'
@@ -9,8 +10,9 @@ class API:
         return response.json()
     
     def get_answer(self, inputs):
-        url = f'{self.ENDPOINT}/answer?inputs={inputs}'
-        response = requests.get(url,stream=True)
+        data = {'inputs': inputs}
+        url = f'{self.ENDPOINT}/answer_v2'
+        response = requests.post(url,data=json.dumps(data),stream=True)
         try:
             for line in response:
                 yield line
