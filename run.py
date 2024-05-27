@@ -15,7 +15,7 @@ bot = discord.Bot()
 async def on_ready():
     logging.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
 
-@bot.command(description="Filecoin TLDR AI Assitant")
+@bot.command(name='tdlr-bot',description="Filecoin TLDR AI Assitant")
 async def tldr(ctx,inputs: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR ctx: {ctx} inputs: {inputs}")
@@ -25,9 +25,9 @@ async def tldr(ctx,inputs: discord.Option(str)):
         answer += text.decode('utf-8')
     await ctx.followup.send(answer)  # 使用 followup 发送最终消息
 
-@bot.command(description="say hi")
-async def hello(ctx):
-    await ctx.respond("Hello, world!")
+# @bot.command(description="say hi")
+# async def hello(ctx):
+#     await ctx.respond("Hello, world!")
 # @bot.event
 # async def on_message(message):
 #     if message.author == bot.user:
