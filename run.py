@@ -15,8 +15,8 @@ bot = discord.Bot()
 async def on_ready():
     logging.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
 
-@bot.command(name='tdlr-bot',description="Filecoin TLDR AI Assitant")
-async def tldr(ctx,inputs: discord.Option(str)):
+@bot.command(name='ask',description="ask question to Filecoin TLDR AI Assitant")
+async def ask(ctx,inputs: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR ctx: {ctx} inputs: {inputs}")
     response = api.get_answer(inputs)
