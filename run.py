@@ -20,7 +20,7 @@ async def tldr(ctx,inputs: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR ctx: {ctx} inputs: {inputs}")
     response = api.get_answer(inputs)
-    answer = ""
+    answer = "Question: {inputs}\nAnswer: "
     for text in response:
         answer += text.decode('utf-8')
     await ctx.followup.send(answer)  # 使用 followup 发送最终消息
