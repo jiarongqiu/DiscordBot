@@ -20,10 +20,10 @@ async def ask(ctx,inputs: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR ctx: {ctx} inputs: {inputs}")
     response = api.get_answer(inputs)
-    answer = f"*TLDR Bot is experimental and still learning. Please bear with us as we improve its accuracy*\n**Q:** {inputs}\n**A:** "
+    answer = f"**Q:** {inputs}\n**A:** "
     for text in response:
         answer += text.decode('utf-8')
-    # answer += "\n\n *Please note the TLDR bot is still learning so we advise doing your own research,  we are constantly fine-tuning it to make sure most relevant results are shown.  Thanks everyone and looking for everyone to use it more. :love_letter:*"
+    answer += "\n\n *TLDR Bot is experimental and still learning. Please bear with us as we improve its accuracy*\n"
     await ctx.followup.send(answer)  # 使用 followup 发送最终消息
 
 # @bot.command(description="say hi")
