@@ -36,7 +36,7 @@ class API:
             docs2 = crawler.chunk(docs)
             docs3 = crawler.from_docs(docs2)
             docs3 = crawler.llm_augment(docs3)
-            # vector_store.add_docs(docs3)
+            vector_store.add_docs(docs3)
             yield f"Add {len(docs3)} documents to sources"
         except Exception as e:
             print("Error:", e)
