@@ -115,4 +115,4 @@ websockets==11.0.3
 xxhash==3.4.1
 yarl==1.9.4
 zipp==3.17.0
-discord.py=2.3.2
+discord.py==2.3.2
