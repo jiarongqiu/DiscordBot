@@ -17,6 +17,7 @@ async def on_ready():
 async def ask(ctx,inputs: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR ctx: {ctx} inputs: {inputs}")
+    logging.info(f"QJR ctx: {ctx} inputs: {inputs}")
     response = api.get_answer(inputs)
     answer = f"**Q:** {inputs}\n**A:** "
     for text in response:
@@ -28,6 +29,7 @@ async def ask(ctx,inputs: discord.Option(str)):
 async def ask(ctx,inputs: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR command add ctx: {ctx} inputs: {inputs}")
+    logging.info(f"QJR command add ctx: {ctx} inputs: {inputs}")
     response = api.add_docs(inputs)
     for text in response:
         await ctx.followup.send(text) 
