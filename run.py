@@ -4,11 +4,11 @@ import logging
 import logging.handlers
 from dotenv import load_dotenv
 load_dotenv()
-from api import api
-
-
 token = os.getenv('DISCORD_TOKEN')
 logging.info(f"TOKEN:{token}")
+print("1",os.getenv('DISCORD_TOKEN'))
+print("2",os.getenv('PINECONE_API_KEY'))
+from api import api
 
 bot = discord.Bot()
 
