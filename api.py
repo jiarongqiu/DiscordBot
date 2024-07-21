@@ -23,7 +23,9 @@ class API:
 
     def add_docs(self, url, max_depth=2):
         try:
-            yield f"Start crawling {url} with max depth 2"
+            yield f"Start crawling {url} with max depth {max_depth}"
+            if url in crawler.visited:
+                yield f"Url {url} has been added before"
             docs = crawler(url,max_depth=max_depth)
             sources = ["Crwawled Sources:"]
             for doc in docs:

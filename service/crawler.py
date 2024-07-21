@@ -30,6 +30,7 @@ class Crawler(RecursiveUrlLoader):
         self.keywords = keywords
         self.splitter = RecursiveCharacterTextSplitter(chunk_size=self.CHUNK_SIZE, chunk_overlap=200)
         self.bot = Bot(template=self.TEMPLATE)
+        self.visited = set()
         super().__init__(
             url="",
             extractor=self._extractor,
@@ -55,11 +56,12 @@ class Crawler(RecursiveUrlLoader):
                 return True
         return False
 
-    def __call__(self,url,visited=set(),max_depth=2,prevent_outside=True):
+    def __call__(self,url,max_depth=2,prevent_outside=True):
         self.url = url
+        self.base_url = url
         self.max_depth = max_depth
         self.prevent_outside = prevent_outside
-        docs = list(self._get_child_links_recursive(url, visited))
+        docs = list(self._get_child_links_recursive(url, self.visited))
         return docs
     
     def from_docs(self,docs):
