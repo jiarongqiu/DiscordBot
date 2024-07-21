@@ -1,5 +1,7 @@
 import requests
 import json
+from service.crawler import crawler
+from service.vector_store import vector_store
 
 class API:
     ENDPOINT = 'https://jr818-jarvisfastapi.hf.space/api'
@@ -18,5 +20,20 @@ class API:
                 yield line
         finally:
             response.close()
+
+    def add_docs(self, url, max_depth=2):
+        yield f"Start crawling {url} with max depth 2"
+        docs = crawler(url,max_depth=max_depth)
+        sources = ["Crwawled Sources:"]
+        for doc in docs:
+            # print(doc.metadata['source'])
+            sources.append(doc.metadata['source'])
+        sources = "\n".join(sources)
+        yield sources
+        docs2 = crawler.chunk(docs)
+        docs3 = crawler.from_docs(docs2)
+        docs3 = crawler.llm_augment(docs3)
+        # vector_store.add_docs(docs3)
+        yield f"Add {len(docs3)} documents to sources"
 
 api = API()
