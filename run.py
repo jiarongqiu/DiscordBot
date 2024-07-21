@@ -8,6 +8,8 @@ token = os.getenv('DISCORD_TOKEN')
 from api import api
 
 bot = discord.Bot()
+print("Bot is running")
+logging.info("Bot is running")
 
 @bot.event
 async def on_ready():
