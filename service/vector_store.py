@@ -24,10 +24,6 @@ class VectorStore(Pinecone):
     NAMESPACE = "filecoin"
 
     def __init__(self) -> None:
-        # pinecone.init(
-        #     api_key=os.getenv("PINECONE_API_KEY"),  
-        #     environment=os.getenv("PINECONE_ENV"),  
-        # )
         pc = pinecone.Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
         self.dims = 1536

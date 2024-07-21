@@ -22,18 +22,22 @@ class API:
             response.close()
 
     def add_docs(self, url, max_depth=2):
-        yield f"Start crawling {url} with max depth 2"
-        docs = crawler(url,max_depth=max_depth)
-        sources = ["Crwawled Sources:"]
-        for doc in docs:
-            # print(doc.metadata['source'])
-            sources.append(doc.metadata['source'])
-        sources = "\n".join(sources)
-        yield sources
-        docs2 = crawler.chunk(docs)
-        docs3 = crawler.from_docs(docs2)
-        docs3 = crawler.llm_augment(docs3)
-        # vector_store.add_docs(docs3)
-        yield f"Add {len(docs3)} documents to sources"
+        try:
+            yield f"Start crawling {url} with max depth 2"
+            docs = crawler(url,max_depth=max_depth)
+            sources = ["Crwawled Sources:"]
+            for doc in docs:
+                # print(doc.metadata['source'])
+                sources.append(doc.metadata['source'])
+            sources = "\n".join(sources)
+            yield sources
+            docs2 = crawler.chunk(docs)
+            docs3 = crawler.from_docs(docs2)
+            docs3 = crawler.llm_augment(docs3)
+            # vector_store.add_docs(docs3)
+            yield f"Add {len(docs3)} documents to sources"
+        except Exception as e:
+            print("Error:", e)
+            yield f"Error in processing {url}"
 
 api = API()
