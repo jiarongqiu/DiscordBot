@@ -3,8 +3,9 @@ import discord
 import logging
 import logging.handlers
 from dotenv import load_dotenv
-from api import api
 load_dotenv()
+from api import api
+
 
 token = os.getenv('DISCORD_TOKEN')
 logging.info(f"TOKEN:{token}")
@@ -32,7 +33,7 @@ async def ask(ctx,inputs: discord.Option(str)):
     print(f"QJR command add ctx: {ctx} inputs: {inputs}")
     response = api.add_docs(inputs)
     for text in response:
-        await ctx.followup.send(answer) 
+        await ctx.followup.send(text) 
 
 # @bot.command(description="say hi")
 # async def hello(ctx):
