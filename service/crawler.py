@@ -82,6 +82,7 @@ class Crawler(RecursiveUrlLoader):
         """     
         res =[]
         for doc in docs:
+            print(doc.title)
             question = question_template.format(
                 title=doc.title,
                 description=doc.description,
@@ -96,7 +97,8 @@ class Crawler(RecursiveUrlLoader):
                 doc.title_llm = data['title']
                 res.append(doc)
             except Exception as e:
-                print(response)
+                print("x")
+                print(e,response)
         return res   
     
 crawler = Crawler()

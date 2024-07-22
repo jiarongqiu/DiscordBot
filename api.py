@@ -31,12 +31,17 @@ class API:
             sources = ["Crawled Sources:"]
             for doc in docs:
                 sources.append(doc.metadata['source'])
-            sources = "\n".join(sources)
-
+            sources = "\n".join(sources)    
+            print(f"Sources:\n{sources}")
             docs2 = crawler.chunk(docs)
             docs3 = crawler.from_docs(docs2)
+            print(f"Augmenting {len(docs3)} documents")
+            logging.info(f"Augmenting {len(docs3)} documents")
             docs3 = crawler.llm_augment(docs3)
+            print("Finished augmenting documents")
             vector_store.add_docs(docs3)
+            print("Added documents to vector store")
+            logging.info("Added documents to vector store")
             crawler.visited.add(url)
             print(f"Added {len(docs3)} documents to sources from {url}")
             logging.info(f"Added {len(docs3)} documents to sources from {url}")
