@@ -10,12 +10,11 @@ from api import api
 bot = discord.Bot()
 print("Bot is running")
 logging.info("Bot is running")
-
 @bot.event
 async def on_ready():
     logging.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
 
-@bot.command(name='ask',description="ask question to Filecoin TLDR AI Assitant")
+@bot.command(name='ask',description="ask question to Filecoin TLDR AI Assistant")
 async def ask(ctx,inputs: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
     print(f"QJR ctx: {ctx} inputs: {inputs}")
@@ -27,44 +26,13 @@ async def ask(ctx,inputs: discord.Option(str)):
     answer += "\n\n **TLDR Bot is experimental and still learning. Please bear with us as we improve its accuracy*\n"
     await ctx.followup.send(answer)  # 使用 followup 发送最终消息
 
-@bot.command(name='add',description="add urls to Filecoin TLDR AI Assitant")
-async def ask(ctx,inputs: discord.Option(str)):
-    await ctx.defer()  # 延迟响应，告诉 Discord 正在处理
-    print(f"QJR command add ctx: {ctx} inputs: {inputs}")
-    logging.info(f"QJR command add ctx: {ctx} inputs: {inputs}")
-    response = api.add_docs(inputs)
-    for text in response:
-        await ctx.followup.send(text) 
+@bot.command(name='add',description="add urls to Filecoin TLDR AI Assistant")
+async def add(ctx,url: discord.Option(str)):
+    await ctx.defer()  # 延迟响应，告诉用户正在处理
+    print(f"QJR command add ctx: {ctx} inputs: {url}")
+    logging.info(f"QJR command add ctx: {ctx} inputs: {url}")
+    await ctx.followup.send(f"Start crawling {url} in background. Please wait for a while.")
+    api.add_docs(url)
 
-# @bot.command(description="say hi")
-# async def hello(ctx):
-#     await ctx.respond("Hello, world!")
-# @bot.event
-# async def on_message(message):
-#     if message.author == bot.user:
-#         return
-#     if message.content.startswith('!jarvis'):
-#         print(bot.user,message.content)
-#         inputs = message.content.split(' ')
-#         inputs.pop(0)
-#         inputs = " ".join(inputs)
-#         response = api.get_answer(inputs)
-#         answer = ""
-#         for text in response:
-#             print(text)
-#             answer += text.decode('utf-8')
-#         logging.info(f"User: {message.author} Inputs: {inputs} Answer: {answer}")
-#         await message.channel.send(answer)
-
-# @bot.command()
-# async def jarvis(ctx, *, inputs):
-#     print(f"User: {ctx.message.author} Inputs: {inputs}")
-#     response = api.get_answer(inputs)
-#     answer = ""
-#     for text in response:
-#         print(text)
-#         answer += text.decode('utf-8')
-#     logging.info(f"User: {ctx.message.author} Inputs: {inputs} Answer: {answer}")
-#     await ctx.send(answer)
 
 bot.run(token)
