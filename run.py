@@ -27,8 +27,10 @@ async def ask(ctx,inputs: discord.Option(str)):
     await ctx.followup.send(answer)  # 使用 followup 发送最终消息
 
 @bot.command(name='add',description="add urls to Filecoin TLDR AI Assistant")
-async def add(ctx,url: discord.Option(str)):
+async def add(ctx,url: discord.Option(str),pwd: discord.Option(str)):
     await ctx.defer()  # 延迟响应，告诉用户正在处理
+    if pwd != 'admin666':
+        await ctx.followup.send("Sorry, only admin can add urls to the database.")
     print(f"QJR command add ctx: {ctx} inputs: {url}")
     logging.info(f"QJR command add ctx: {ctx} inputs: {url}")
     await ctx.followup.send(f"Start crawling {url} in background. Please wait for a while.")
