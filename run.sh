@@ -1,3 +1,5 @@
+git pull
+
 # 容器名称
 NAME="discord-bot"
 
